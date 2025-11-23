@@ -1,722 +1,528 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
-        }
-
-        body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
-        }
-
-        .initiative-content {
-            padding: 1.5rem;
-        }
-
-        .initiative-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .initiative-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>山西新华专业预定系统</title>
+
+  <!-- Tailwind Play CDN (快速开发用) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Inter font & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- html2canvas 用于生成海报截图 -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <style>
+    :root{
+      --bg-1: linear-gradient(135deg,#0f172a 0%, #08102a 40%, #0b1220 100%);
+      --glass: rgba(255,255,255,0.06);
+      --accent: linear-gradient(90deg,#7c3aed,#06b6d4);
+    }
+    html,body,#app{height:100%}
+    body{
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg-1);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Card shine animation */
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+    }
+
+    .glow {
+      position: relative;
+      overflow: hidden;
+    }
+    .glow::after {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(circle at 10% 10%, rgba(124,58,237,0.15), transparent 8%),
+                  radial-gradient(circle at 90% 80%, rgba(6,182,212,0.12), transparent 10%);
+      animation: float 8s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes float {
+      0% { transform: translateY(-4%) rotate(0deg); opacity:0.9; }
+      50% { transform: translateY(4%) rotate(180deg); opacity:1; }
+      100% { transform: translateY(-4%) rotate(360deg); opacity:0.9; }
+    }
+
+    /* progress ring */
+    .ring {
+      background: conic-gradient(#06b6d4 var(--p), rgba(255,255,255,0.06) 0);
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 10px), black calc(100% - 9px));
+      mask: radial-gradient(farthest-side, transparent calc(100% - 10px), black calc(100% - 9px));
+    }
+
+    /* modal backdrop */
+    .backdrop {
+      background: linear-gradient(180deg, rgba(2,6,23,0.75), rgba(2,6,23,0.85));
+      backdrop-filter: blur(8px);
+    }
+
+    /* subtle button hover */
+    .btn-accent {
+      background: linear-gradient(90deg,#7c3aed,#06b6d4);
+      color: white;
+      box-shadow: 0 6px 20px rgba(6,182,212,0.06), inset 0 -2px 6px rgba(0,0,0,0.18);
+    }
+    .btn-accent:active { transform: translateY(1px) scale(0.997); }
+
+    /* poster styles (for html2canvas) */
+    #poster {
+      width: 900px;
+      height: 1200px;
+      padding: 36px;
+      box-sizing: border-box;
+      border-radius: 16px;
+      background: linear-gradient(180deg,#0b1220,#061026);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    #poster .accent {
+      background: linear-gradient(90deg,#7c3aed,#06b6d4);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      font-weight:800;
+    }
+  </style>
 </head>
 <body>
+  <div id="app" class="min-h-screen p-6 md:p-12">
+
     <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg card glow flex items-center justify-center">
+          <!-- logo -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#g)"></rect>
+            <defs>
+              <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#7c3aed"/>
+                <stop offset="1" stop-color="#06b6d4"/>
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
+        <div>
+          <div class="text-2xl font-semibold">山西新华专业预定</div>
+          <div class="text-sm text-slate-300/70">校内预科班名额公示 · 预定系统 · </div>
         </div>
-    </section>
+      </div>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
-            </div>
+      <div class="flex items-center gap-3">
+        <div class="text-sm text-slate-300/70">共有 <span id="totalSlots" class="font-semibold text-white">—</span> 个总名额</div>
+        <button id="resetBtn" class="px-4 py-2 rounded-lg btn-accent hover:brightness-105 text-sm">重置模拟数据</button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Left panel: big visual + selected major -->
+      <div class="col-span-2 card p-6 rounded-2xl glow">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <div class="text-xl font-semibold">专业名额总览</div>
+            <div class="text-sm text-slate-300/70">点击任一卡片查看详细并预定</div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="text-sm text-slate-300/70">已预定总数</div>
+            <div class="px-3 py-2 rounded-lg" style="background:rgba(255,255,255,0.03)"><span id="totalBooked" class="font-semibold">0</span></div>
+          </div>
         </div>
-    </section>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
+        <!-- grid of majors -->
+        <div id="majorsGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+          <!-- cards injected by JS -->
         </div>
-    </section>
+      </div>
 
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
-        </div>
-    </section>
+      <!-- Right panel: selected detail + form -->
+      <div class="card p-6 rounded-2xl glow">
+        <div id="detailPanel">
+          <div class="text-lg font-semibold mb-2" id="detailTitle">请选择一个专业</div>
+          <div class="text-sm text-slate-300/70 mb-4" id="detailSubtitle">点击左侧任意卡片查看剩余名额并发起预定</div>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+          <div id="detailBody" class="space-y-4">
+            <!-- dynamic -->
+            <div class="rounded-xl p-4" style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-sm text-slate-300/70">剩余名额</div>
+                  <div class="text-3xl font-bold" id="detailRemain">—</div>
                 </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
+
+                <div class="flex flex-col items-center gap-2">
+                  <div class="w-24 h-24 rounded-full ring" style="--p: 0%"></div>
+                  <div class="text-xs text-slate-300/60">填充代表已占比例</div>
                 </div>
-                <div class="footer-column">
-                    <h3>Our Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
-                </div>
+              </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
-            </div>
+
+            <form id="reserveForm" class="space-y-3">
+              <div>
+                <label class="text-sm text-slate-300/70">姓名</label>
+                <input id="inputName" required type="text" placeholder="请输入姓名" class="w-full mt-1 p-3 rounded-lg bg-transparent border border-white/6 outline-none focus:border-white/20">
+              </div>
+              <div>
+                <label class="text-sm text-slate-300/70">手机号（选填）</label>
+                <input id="inputPhone" type="text" placeholder="例如：13900001234" class="w-full mt-1 p-3 rounded-lg bg-transparent border border-white/6 outline-none focus:border-white/20">
+              </div>
+
+              <div class="flex gap-3">
+                <button id="submitBtn" type="submit" class="flex-1 py-3 rounded-lg btn-accent font-semibold">立即预定</button>
+                <button id="previewPosterBtn" type="button" class="flex-1 py-3 rounded-lg border border-white/6">预览海报</button>
+              </div>
+            </form>
+
+            <div id="hint" class="text-sm text-amber-300/80"></div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </div>
 
-    <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
+    <!-- Footer small -->
+    <div class="mt-8 text-sm text-slate-300/70">演示说明：本页面为前端模拟示例，提交在本地更新数据。后端对接只需将 submitHandler 中的逻辑替换成 API 调用即可。</div>
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
-                } else {
-                    counter.innerText = target;
-                }
-            });
-        }
+    <!-- Modal: success -->
+    <div id="successModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+      <div class="absolute inset-0 backdrop-blur-sm bg-black/50"></div>
+      <div class="relative w-full max-w-2xl mx-auto p-6">
+        <div class="card p-6 rounded-2xl">
+          <div class="flex items-start gap-4">
+            <div class="flex-1">
+              <div class="text-2xl font-bold" id="successTitle">预定成功！</div>
+              <div class="text-sm text-slate-300/70 mt-2" id="successDesc">恭喜，你已成功预定 <span class="font-semibold" id="successMajor">—</span></div>
 
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
+              <div class="mt-4 flex gap-3">
+                <button id="downloadPoster" class="btn-accent px-4 py-2 rounded-lg">下载海报</button>
+                <button id="closeSuccess" class="px-4 py-2 rounded-lg border border-white/6">关闭</button>
+              </div>
+            </div>
+            <div class="w-44 h-56 rounded-lg overflow-hidden border border-white/6" id="posterPreviewWrap">
+              <!-- mini poster preview -->
+              <div id="posterPreview" class="w-full h-full flex items-center justify-center bg-gradient-to-b from-[#091227] to-[#061026] text-white p-3">
+                <!-- populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
-                }
-            });
-        });
-    </script>
+    <!-- Hidden poster node for html2canvas -->
+    <div id="posterContainer" class="hidden">
+      <div id="poster" class="rounded-lg">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:36px;font-weight:800;" class="accent">山西新华电脑学校</div>
+            <div style="font-size:18px;margin-top:6px;color:rgba(255,255,255,0.85)">预科班专业预定凭证</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:14px;color:rgba(255,255,255,0.7)">提交时间</div>
+            <div id="posterTime" style="font-size:12px;color:rgba(255,255,255,0.8);margin-top:8px;"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:36px;">
+          <div style="font-size:22px;color:rgba(255,255,255,0.9)">恭喜 <span id="posterName" style="font-weight:800"></span></div>
+          <div style="font-size:56px;font-weight:900;margin-top:18px" id="posterMajor">AI+智能开发与网络安全工程师</div>
+          <div style="margin-top:14px;color:rgba(255,255,255,0.75)">（请保存此图片作为预定凭证）</div>
+        </div>
+
+        <div style="position:absolute;right:36px;bottom:36px;text-align:center;">
+          <div style="width:160px;height:160px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#111;font-weight:700">
+            二维码
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:8px;text-align:center">凭二维码到校核验</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+/*
+  前端完整逻辑（不依赖后台）：
+  - majorsData: 初始数据（来自你提供的表）
+  - 渲染卡片网格、设置可视化进度环
+  - 点击卡片 -> 在右侧展示详情并准备预定
+  - 提交表单 -> 本地更新 remaining 与 reservations 列表（真实场景替换为 API 调用）
+  - 生成海报使用 html2canvas（把隐藏的 poster 节点渲染为图片）
+*/
+
+// 初始数据（从用户提供的 14 个专业）
+const majorsDataInit = [
+  { id: '400501', name: '智慧交通与高级乘务（校企共建）', total:20, booked:5, status:'可选' },
+  { id: '400502', name: '人物形象设计师', total:30, booked:7, status:'可选' },
+  { id: '400503', name: '无人机应用工程师', total:35, booked:6, status:'可选' },
+  { id: '400504', name: 'AI +数字传媒与室内设计师', total:40, booked:3, status:'紧张' },
+  { id: '400505', name: '智能制造与工业机器人应用工程师', total:35, booked:5, status:'可选' },
+  { id: '400506', name: '国防特色实验班', total:20, booked:7, status:'可选' },
+  { id: '400507', name: 'AI+智能开发与网络安全工程师', total:20, booked:2, status:'紧张' },
+  { id: '400508', name: 'AI+新媒体电商与短视频运营师', total:30, booked:3, status:'紧张' },
+  { id: '400509', name: '普职融通班', total:20, booked:8, status:'可选' },
+  { id: '400510', name: '互联网应用工程师（设计方向）', total:20, booked:4, status:'紧张' },
+  { id: '400511', name: '学前教育与心理健康', total:30, booked:5, status:'可选' },
+  { id: '400512', name: 'AI+动漫制作与游戏设计师', total:30, booked:3, status:'紧张' },
+  { id: '400513', name: '智慧交通与高级乘务', total:35, booked:4, status:'可选' },
+  { id: '400514', name: '电子竞技运动与管理工程师(1+X）', total:20, booked:5, status:'可选' }
+];
+
+// app state (in-memory)
+let majors = JSON.parse(JSON.stringify(majorsDataInit));
+let selectedMajorId = null;
+let reservations = []; // local record list (in real app: server-side records)
+
+const $ = id => document.getElementById(id);
+
+// utility: format percent
+function pct(v){ return Math.max(0, Math.min(100, Math.round(v))); }
+
+// render entire grid
+function renderGrid(){
+  const grid = $('majorsGrid');
+  grid.innerHTML = '';
+  majors.forEach(m => {
+    const remain = Math.max(0, m.total - m.booked);
+    const usedPct = pct((m.booked / m.total) * 100);
+    const card = document.createElement('div');
+    card.className = 'card p-4 rounded-xl cursor-pointer hover:scale-[1.01] transition-transform duration-200 glow';
+    card.style.border = '1px solid rgba(255,255,255,0.03)';
+
+    card.innerHTML = `
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <div class="text-sm text-slate-300/70">编号 ${m.id}</div>
+          <div class="text-lg font-semibold mt-1">${m.name}</div>
+          <div class="mt-3 text-sm text-slate-300/60">剩余： <span class="font-bold text-white">${remain}</span> / ${m.total}</div>
+        </div>
+        <div class="flex flex-col items-end gap-2">
+          <div class="w-20 h-20 rounded-full ring" style="--p:${usedPct}%"></div>
+          <div class="text-xs px-2 py-1 rounded-md" style="background: rgba(255,255,255,0.02)">${m.status}</div>
+        </div>
+      </div>
+    `;
+    // click handler
+    card.addEventListener('click', () => selectMajor(m.id));
+    grid.appendChild(card);
+  });
+
+  // totals
+  const totalSlots = majors.reduce((s,m)=>s+m.total,0);
+  const totalBooked = majors.reduce((s,m)=>s+m.booked,0);
+  $('totalSlots').textContent = totalSlots;
+  $('totalBooked').textContent = totalBooked;
+
+  // If current selected exists, re-render detail to update ring
+  if(selectedMajorId) renderDetail(selectedMajorId);
+}
+
+// render detail panel for a major
+function renderDetail(id){
+  const m = majors.find(x=>x.id===id);
+  if(!m) return;
+  selectedMajorId = id;
+  $('detailTitle').textContent = m.name;
+  $('detailSubtitle').textContent = `编号 ${m.id} · 状态：${m.status}`;
+  const remain = Math.max(0, m.total - m.booked);
+  $('detailRemain').textContent = remain;
+  // update ring fill
+  const usedPct = pct((m.booked / m.total) * 100);
+  const ring = document.querySelector('#detailBody .ring');
+  if(ring) ring.style.setProperty('--p', usedPct + '%');
+
+  // enable/disable submit btn
+  const submitBtn = $('submitBtn');
+  if(remain<=0) {
+    submitBtn.classList.add('opacity-60');
+    submitBtn.disabled = true;
+    $('hint').textContent = '该专业已满，无法预定。';
+  } else {
+    submitBtn.classList.remove('opacity-60');
+    submitBtn.disabled = false;
+    $('hint').textContent = `剩余 ${remain} 个名额，先到先得。`;
+  }
+}
+
+// select major
+function selectMajor(id){
+  renderDetail(id);
+  // highlight selection visually (optional)
+  const cards = document.querySelectorAll('#majorsGrid > div');
+  cards.forEach((c,idx)=>{
+    const m = majors[idx];
+    if(m.id===id) c.style.outline = '2px solid rgba(124,58,237,0.12)';
+    else c.style.outline = 'none';
+  });
+}
+
+// form submit handler (local simulation)
+// In production, replace the inside with API call to backend:
+// 1) call backend /reserve with majorId, name, phone
+// 2) backend does atomic check-and-decrement, returns success/fail
+// 3) frontend shows success modal and poster
+document.querySelector('#reserveForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const name = $('inputName').value.trim();
+  const phone = $('inputPhone').value.trim();
+  if(!name) { alert('请输入姓名'); return; }
+  if(!selectedMajorId) { alert('请选择专业'); return; }
+
+  // local "atomic" check
+  const m = majors.find(x=>x.id===selectedMajorId);
+  if(!m) { alert('专业不存在'); return; }
+  const remain = m.total - m.booked;
+  if(remain <= 0){ alert('名额已满'); renderDetail(selectedMajorId); return; }
+
+  // simulate network latency
+  $('submitBtn').textContent = '提交中...'; $('submitBtn').disabled = true;
+  await new Promise(r=>setTimeout(r,600));
+
+  // commit: decrement booked, add reservation record
+  m.booked += 1;
+  const res = {
+    id: 'R' + Date.now(),
+    majorId: m.id,
+    majorName: m.name,
+    name: name,
+    phone: phone,
+    time: new Date().toLocaleString()
+  };
+  reservations.push(res);
+
+  // update UI
+  $('submitBtn').textContent = '立即预定'; $('submitBtn').disabled = false;
+  renderGrid();
+  renderDetail(selectedMajorId);
+
+  // prepare poster preview and success modal
+  showSuccess(res);
+});
+
+// show success modal and prepare poster
+function showSuccess(res){
+  $('successMajor').textContent = res.majorName;
+  $('successTitle').textContent = '预约成功！';
+  $('successDesc').textContent = `恭喜 ${res.name}，已成功预定：${res.majorName}`;
+  // populate mini preview
+  const pp = $('posterPreview');
+  pp.innerHTML = `
+    <div style="text-align:left">
+      <div style="font-size:12px;color:rgba(255,255,255,0.7)">学员</div>
+      <div style="font-weight:700">${res.name}</div>
+      <div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,0.7)">专业</div>
+      <div style="font-weight:700;margin-top:4px">${res.majorName}</div>
+      <div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,0.6)">${res.time}</div>
+    </div>
+  `;
+
+  // populate hidden poster content
+  $('posterName').textContent = res.name;
+  $('posterMajor').textContent = res.majorName;
+  $('posterTime').textContent = res.time;
+
+  $('successModal').classList.remove('hidden');
+  $('successModal').classList.add('flex');
+}
+
+// close modal
+$('closeSuccess').addEventListener('click', ()=> {
+  $('successModal').classList.add('hidden');
+  $('successModal').classList.remove('flex');
+});
+
+// download poster (generate image using html2canvas)
+$('downloadPoster').addEventListener('click', async ()=>{
+  const posterNode = document.querySelector('#poster');
+  // temporarily reveal poster container
+  const pc = document.getElementById('posterContainer');
+  pc.classList.remove('hidden');
+  pc.style.position = 'fixed'; pc.style.left='-9999px'; pc.style.top='-9999px'; // off-screen but renderable
+
+  // small delay for fonts/styles
+  await new Promise(r=>setTimeout(r,80));
+
+  // use html2canvas
+  html2canvas(posterNode, {scale:2, useCORS:true, backgroundColor:null}).then(canvas => {
+    // create download link
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = `预定凭证_${Date.now()}.png`;
+    link.click();
+
+    // cleanup
+    pc.classList.add('hidden');
+  }).catch(err=>{
+    alert('生成失败：'+err);
+    pc.classList.add('hidden');
+  });
+});
+
+// preview poster without committing (open poster in new tab)
+$('previewPosterBtn').addEventListener('click', async ()=>{
+  // populate with current form fields or placeholder
+  const name = $('inputName').value.trim() || '测试学生';
+  const majorName = (selectedMajorId ? majors.find(x=>x.id===selectedMajorId).name : '请选择专业');
+  $('posterName').textContent = name;
+  $('posterMajor').textContent = majorName;
+  $('posterTime').textContent = new Date().toLocaleString();
+
+  const posterNode = document.querySelector('#poster');
+  const pc = document.getElementById('posterContainer');
+  pc.classList.remove('hidden');
+  pc.style.position = 'fixed'; pc.style.left='-9999px'; pc.style.top='-9999px';
+
+  await new Promise(r=>setTimeout(r,80));
+
+  html2canvas(posterNode, {scale:2, useCORS:true, backgroundColor:null}).then(canvas => {
+    const data = canvas.toDataURL('image/png');
+    const w = window.open('');
+    if(!w) { alert('浏览器阻止弹窗，请允许弹窗或直接下载海报'); pc.classList.add('hidden'); return; }
+    const img = w.document.createElement('img');
+    img.src = data;
+    img.style.maxWidth = '100%';
+    w.document.body.style.background = '#091227';
+    w.document.body.appendChild(img);
+    pc.classList.add('hidden');
+  }).catch(err=>{
+    alert('预览失败：'+err);
+    pc.classList.add('hidden');
+  });
+});
+
+// reset data to initial state (for demo)
+$('resetBtn').addEventListener('click', ()=>{
+  if(!confirm('重置示例数据？')) return;
+  majors = JSON.parse(JSON.stringify(majorsDataInit));
+  reservations = [];
+  selectedMajorId = null;
+  renderGrid();
+  // reset detail panel
+  $('detailTitle').textContent = '请选择一个专业';
+  $('detailSubtitle').textContent = '点击左侧任意卡片查看剩余名额并发起预定';
+  $('detailRemain').textContent = '—';
+  $('inputName').value = '';
+  $('inputPhone').value = '';
+});
+
+// initial render
+renderGrid();
+
+// auto-select first major for convenience
+selectMajor(majors[0].id);
+</script>
 </body>
-
 </html>
